@@ -14,26 +14,27 @@ params:
 
 languages:
   en:
-    title: NASLAB
-    subtitle: Network and System Security Laboratory
-    keywords: 'naslab unict network system security lab cybersecurity'
-    menuMore: Show more
-    writtenBy: Written by
-    readMore: Read more
-    readOtherPosts: Read other posts
-    newerPosts: Newer posts
-    olderPosts: Older posts
-    dateFormatSingle: 2006-01-02
-    dateFormatList: 2006-01-02
+    title: NASLAB 
     
     params:
+      subtitle: Network and System Security Laboratory
+      keywords: 'naslab unict network system security lab cybersecurity'
+      readOtherPosts: Read other posts
+      menuMore: Show more
+      writtenBy: Written by
+      dateFormatSingle: 2006-01-02
+      dateFormatList: 2006-01-02
+      readMore: Read more
+      newerPosts: Newer posts
+      olderPosts: Older posts
+
       logo:
         logoText: NASLAB
         logoHomeLink: /
-    #   or
-    #
-    #   path: /img/your-example-logo.svg
-    #   alt: Your example logo alt text
+      #   or
+      #
+      #   path: /img/your-example-logo.svg
+      #   alt: Your example logo alt text
     
     menu:
       main:
