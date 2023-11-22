@@ -10,7 +10,7 @@ params:
   # "dark" or "light"
   defaultTheme: dark
   # if you set this to 0, only submenu trigger will be visible
-  showMenuItems: 2
+  showMenuItems: 5
 
 languages:
   en:
@@ -44,3 +44,6 @@ languages:
       - identifier: htb
         name: HackTheBox
         url: /htb
+      - identifier: ctf
+        name: CTF
+        url: /ctf
