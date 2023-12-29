@@ -250,9 +250,6 @@ As shown in Figure 14, visiting route `/admin` we got... ~~flag~~ trolled :/
 **Figure 14**: Flag page
 
 
-{{< image src="/img/snakeCTF2023/memewhyyyy.jpg" >}}
-Accurate picture of me at 3:00 AM
-
 #### Second part
 We didn't get the flag, but now we can reach the `process_image` function in the `cats_helper.rb` file.
 
