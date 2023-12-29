@@ -27,5 +27,9 @@ Simone Benedetto
 {{< /boxed >}}
 
 {{< boxed title="Members">}}
+Gabriele Giaccari
+
+@B@db0y18
+<--->
 {{< /boxed >}}
 
