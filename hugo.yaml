@@ -8,7 +8,7 @@ params:
   # dir name of your blog content (default is `content/posts`)
   contentTypeName: posts
   # "dark" or "light"
-  defaultTheme: dark
+  defaultTheme: light
   # if you set this to 0, only submenu trigger will be visible
   showMenuItems: 5
 
@@ -18,7 +18,7 @@ languages:
     
     params:
       subtitle: Network and System Security Laboratory
-      keywords: 'naslab unict network system security lab cybersecurity'
+      keywords: 'naslab unict catania cybersecurity capture-the-flag writeups linux'
       readOtherPosts: Read other posts
       menuMore: Show more
       writtenBy: Written by
@@ -31,19 +31,13 @@ languages:
       logo:
         logoText: NASLAB
         logoHomeLink: /
-      #   or
-      #
-      #   path: /img/your-example-logo.svg
-      #   alt: Your example logo alt text
     
+
     menu:
       main:
       - identifier: about
-        name: About
+        name: ABOUT
         url: /about
-      - identifier: htb
-        name: HackTheBox
+      - identifier: writeups
+        name: WRITEUPS
         url: /htb
-      - identifier: ctf
-        name: CTF
-        url: /ctf
