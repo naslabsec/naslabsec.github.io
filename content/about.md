@@ -27,5 +27,9 @@ Simone Benedetto
 {{< /boxed >}}
 
 {{< boxed title="Members">}}
+Mattia Lembo
+
+@Hydrogen
+<--->
 {{< /boxed >}}
 
