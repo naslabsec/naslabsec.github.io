@@ -11,7 +11,7 @@ draft: false
         <img src="/img/contacts/ctftime.png" style="width: 48px;" />
     </a>
     <a href="mailto:naslabsec@gmail.com">
-        <img src="/img/contacts/email.png" style="width: 48px ;" />
+        <img src="/img/contacts/email.png" style="width: 48px;" />
     </a>
 </div>
 {{< /raw >}}
