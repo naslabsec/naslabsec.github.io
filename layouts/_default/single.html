@@ -5,7 +5,9 @@
 "posts" }}
 
 <article class="post">
-    {{- partial "post_head.html" . }}
+    <div style="display: flex;justify-content: center;">
+        {{ partial "post_head.html" . }}
+    </div>
 
     <div class="post-content">
         {{ if or .Params.Toc $.Site.Params.Toc }}
