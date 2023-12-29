@@ -1,0 +1,43 @@
+{{ define "main" }}
+  <div class="posts">
+    {{ range .Pages }}
+      <article class="post on-list">
+          
+          <div style="display: flex; align-content: center; column-gap: 100px;">
+            {{ if .Params.Cover }}
+            <div class="post-cover" style="width: 80px">
+                <img src="{{ .Params.Cover | absURL }}" alt="{{ .Params.CoverAlt | plainify | default .Title }}"/>
+            </div>
+            {{ end }}
+            <div style="display: flex; flex-direction: column; align-content: center;">
+                <a href="{{ .Permalink }}" style="text-decoration: none;">
+                    <h1 class="post-title" style="margin: 0 0 0px;">{{ .Title | markdownify }}</h1>
+                    {{ if .Params.challenge }}
+                    <h2 >{{ .Params.challenge | markdownify }}</h2>
+                    {{ end }}
+                </a>
+                    {{ if .Date }}
+                    <time class="post-date">
+                      {{ .Date.Format ($.Site.Params.DateFormatList | default "2006-01-02") }}
+                    </time>
+                    {{ end }}
+                </div>
+        </div>
+
+        
+        <div class="post-meta">
+
+        {{ if .Params.tags }}
+          <span class="post-tags">
+            {{ range .Params.tags }}
+              <a href="{{ (urlize (printf "tags/%s" . )) | absLangURL }}/">#{{ . }}</a>&nbsp;
+            {{ end }}
+          </span>
+        {{ end }}
+
+
+      </article>
+    {{ end }}
+    {{ partial "pagination.html" . }}
+  </div>
+{{ end }}

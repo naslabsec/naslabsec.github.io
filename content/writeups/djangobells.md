@@ -1,5 +1,6 @@
 ---
-title: 'saarCTF2023 - DjangoBells'
+title: 'saarCTF 2023'
+challenge: 'DjangoBells'
 date: 2023-11-22T16:31:22+01:00
 author: 'R1D3R175 & SimozB'
 description: 'Writeup for saarCTF2023 DjangoBells service' 
