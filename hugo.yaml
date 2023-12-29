@@ -17,7 +17,7 @@ languages:
     title: NASLAB 
     
     params:
-      subtitle: Network and System Security Laboratory
+      subtitle: Network and Security Laboratory
       keywords: 'naslab unict catania cybersecurity capture-the-flag writeups linux'
       readOtherPosts: Read other posts
       menuMore: Show more
