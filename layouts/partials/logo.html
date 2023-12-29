@@ -1,12 +1,8 @@
-<a
-  href="{{ if $.Site.Params.Logo.LogoHomeLink }}{{ $.Site.Params.Logo.LogoHomeLink }}{{ else }}{{ $.Site.BaseURL }}{{ end }}"
-  class="logo"
-  style="text-decoration: none;"
->
+<a href="{{ if $.Site.Params.Logo.LogoHomeLink }}{{ $.Site.Params.Logo.LogoHomeLink }}{{ else }}{{ $.Site.BaseURL }}{{ end }}"
+  class="logo" style="text-decoration: none;">
   {{ if $.Site.Params.Logo.path }}
-    <img src="{{ $.Site.Params.Logo.path }}" alt="{{ $.Site.Params.Logo.alt }}" />
-    {{ end }}
-    <span style="margin-left: 5px;" class="logo__text"
-      >{{ with $.Site.Params.Logo.logoText }}{{ . }}{{ else }}NASLAB{{ end }}</span
-    >
+  <img src="{{ $.Site.Params.Logo.path }}" alt="{{ $.Site.Params.Logo.alt }}" />
+  {{ end }}
+  <span style="margin-left: 5px;" class="logo__text">{{ with $.Site.Params.Logo.logoText }}{{ . }}{{ else }}NASLAB{{ end
+    }}</span>
 </a>

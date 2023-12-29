@@ -1,11 +1,11 @@
 <footer class="footer">
   <div class="footer__inner">
     {{ if $.Site.Copyright }}
-      <div class="copyright copyright--user">{{ $.Site.Copyright | safeHTML }}</div>
-      {{ else }}
-      <div class="copyright">
-        <span>© {{ now.Year }} Powered by NASLAB</span>
-      </div>
+    <div class="copyright copyright--user">{{ $.Site.Copyright | safeHTML }}</div>
+    {{ else }}
+    <div class="copyright">
+      <span>© {{ now.Year }} Powered by NASLAB</span>
+    </div>
     {{ end }}
   </div>
 </footer>
