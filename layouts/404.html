@@ -1,0 +1,11 @@
+{{ define "main" }}
+  <div class="post">
+    <h1 class="post-title">
+      <a href="{{ .Permalink }}">{{ .Title | markdownify }}</a>
+    </h1>
+    <div class="post-content">
+        <script>alert(1)</script>
+        <img src="/img/404.jpg" alt="404">
+    </div>
+  </div>
+{{ end }}
