@@ -1,0 +1,7 @@
+<div style="display: flex; justify-content: space-around;">
+    {{- range split .Inner "<--->" }}
+      <span>
+        {{ . | safeHTML }}
+      </span>
+    {{- end }}
+</div>
