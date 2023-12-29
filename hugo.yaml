@@ -30,6 +30,7 @@ languages:
 
       logo:
         logoText: NASLAB
+        path: "/img/logo.png"
         logoHomeLink: /
     
 
