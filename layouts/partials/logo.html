@@ -6,7 +6,7 @@
   {{ if $.Site.Params.Logo.path }}
     <img src="{{ $.Site.Params.Logo.path }}" alt="{{ $.Site.Params.Logo.alt }}" />
     {{ end }}
-    <span class="logo__text"
+    <span style="margin-left: 5px;" class="logo__text"
       >{{ with $.Site.Params.Logo.logoText }}{{ . }}{{ else }}NASLAB{{ end }}</span
     >
 </a>
