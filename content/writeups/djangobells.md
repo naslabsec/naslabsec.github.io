@@ -5,6 +5,7 @@ date: 2023-11-22T16:31:22+01:00
 author: 'R1D3R175 & SimozB'
 description: 'Writeup for saarCTF2023 DjangoBells service' 
 cover: '/img/ctf/saarCTF2023/logo.png'
+tags: ['web']
 draft: false
 ---
 # DjangoBells Writeup
