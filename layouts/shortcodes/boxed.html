@@ -1,0 +1,11 @@
+{{ if .Get "title" }}
+<h2>{{ .Get "title"}}</h2>
+{{ end }}
+
+<div class="post framed" style="display: flex;justify-content: space-around;flex-flow: row wrap;">
+    {{- range split .Inner "<--->" }}
+    <div>    
+        {{ . | markdownify }}
+    </div>
+        {{- end }}
+</div>
