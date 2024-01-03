@@ -27,19 +27,15 @@ Simone Benedetto
 {{< /boxed >}}
 
 {{< boxed title="Members">}}
+Benedetto Ucchino
 
-Mattia Lembo
-
-@Hydrogen
+@R1D3R175
 <--->
 Gabriele Giaccari
 
 @B@db0y18
 <--->
-Benedetto Ucchino
+Mattia Lembo
 
-@R1D3R175
-
-
+@Hydrogen
 {{< /boxed >}}
-
