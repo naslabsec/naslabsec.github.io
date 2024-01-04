@@ -24,6 +24,10 @@ Andrea Maugeri
 Simone Benedetto
 
 @SimozB
+<--->
+Marcello Maugeri
+
+@Maray97
 {{< /boxed >}}
 
 {{< boxed title="Members">}}
