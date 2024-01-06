@@ -28,6 +28,10 @@ Simone Benedetto
 Marcello Maugeri
 
 @Maray97
+<--->
+Salvatore Graci
+
+@Sgraci32
 {{< /boxed >}}
 
 {{< boxed title="Members">}}
