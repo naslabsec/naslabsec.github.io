@@ -4,7 +4,7 @@
 
 <div class="post framed" style="display: flex;justify-content: space-around;flex-flow: row wrap;">
     {{- range split .Inner "<--->" }}
-    <div>    
+    <div style="width:250px">    
         {{ . | markdownify }}
     </div>
         {{- end }}
