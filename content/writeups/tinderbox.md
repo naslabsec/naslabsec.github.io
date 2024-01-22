@@ -97,7 +97,7 @@ N.B. in this stack representation (obviously) numbers in square bracket below ar
 
 ```
 
-We can exploit this to change the values of `name_offset` to negative value, and gain arbitrary memory write with `setValues`functions, basically we only need to modify `jump_tables_offset[1]` from value **3** to **2**, so we'll call `win` function when we run third option in the menu.
+We can exploit this to change the values of `name_offset` to negative value, and gain arbitrary memory write with `setValues`functions, basically we only need to modify `jump_tables_offset[1]` from value **1** to **2**, so we'll call `win` function when we run third option in the menu.
 
 {{< image src="/img/Insomnihack_teaser_2024/menu.png" position="center" >}}
 Figure 3: menu function
