@@ -106,7 +106,7 @@ After some try we found that the right offset to modify `jump_tables_offset[1]` 
 
 Here is the script used to get the flag:
 
-```python3
+```python
 from pwn import *
 
 p = remote("tinderbox.insomnihack.ch", 7171)
