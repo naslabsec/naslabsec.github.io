@@ -60,6 +60,7 @@ We can see that there is a function called `win` that we need to call to print t
 
 {{< image src="/img/Insomnihack_teaser_2024/jump_table.png" position="center" >}}
 
+
 {{< image src="/img/Insomnihack_teaser_2024/setValues.png" position="center" >}}
 
 Some minimal refactoring later we found that the `setValues` function (traceback: `setValues` <= `fixTypo` <=  `menu` <= `__original_main`) can be abused to get arbitrary write primitive on the memory and get the flag. Here is why:
