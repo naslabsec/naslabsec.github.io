@@ -46,7 +46,7 @@ Tell me your name: naslab
 The behavior of the options is as follows:
 
 - (1) allows you to change the first letter of the name
-- (2) take a number as input and calculate $37 - your input$
+- (2) take a number as input and calculate **37 - your input**
 - (3) print a text
 
 We can use the [ghidra-wasm-plugin](https://github.com/nneonneo/ghidra-wasm-plugin) to disassemble it in Ghidra.
@@ -69,7 +69,7 @@ Some minimal refactoring later we found that the `setValues` function (traceback
 
 - The buffer where name is stored is allocated in the `__original_main` function, so the buffer overflow occurs in that function context
 - The `__original_main` function defines a `jump_table_offsets` which contains some offsets that are used to call the correct function in the function table shown above.
-- The `__original_main` function calls the `menu` function and passes `name`, `jump_table_offsets` pointers and a variable `name_offset` containing $0$. This offset is used in the `setValues` function to referencing to first character of the 'name' buffer. In short, it is the offset of the character modified by `fixTypo`.
+- The `__original_main` function calls the `menu` function and passes `name`, `jump_table_offsets` pointers and a variable `name_offset` containing **0**. This offset is used in the `setValues` function to referencing to first character of the 'name' buffer. In short, it is the offset of the character modified by `fixTypo`.
 
 {{< image src="/img/Insomnihack_teaser_2024/original_main.png" position="center" >}}
 Figure 4: original_main function
@@ -97,12 +97,12 @@ N.B. in this stack representation (obviously) numbers in square bracket below ar
 
 ```
 
-We can exploit this to change the values into `name_offset` to negative value, and gain arbitrary memory write with `setValues`functions, basically we need only to modify `jump_tables_offset[1]` from value $3$ to $2$, so we'll call `win` function when we run third option in the menu.
+We can exploit this to change the values into `name_offset` to negative value, and gain arbitrary memory write with `setValues`functions, basically we need only to modify `jump_tables_offset[1]` from value **3** to **2**, so we'll call `win` function when we run third option in the menu.
 
 {{< image src="/img/Insomnihack_teaser_2024/menu.png" position="center" >}}
 Figure 3: menu function
 
-After some tries we found out that the right offset to modify `jump_tables_offset[1]` is $-12$. 
+After some tries we found out that the right offset to modify `jump_tables_offset[1]` is **-12**. 
 
 Here is the script used to get the flag:
 
