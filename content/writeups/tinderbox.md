@@ -69,7 +69,7 @@ Some minimal refactoring later we found that the `setValues` function (traceback
 
 - The buffer where name is stored is allocated in the `__original_main` function, so the buffer overflow occurs in that function context
 - The `__original_main` function defines a `jump_table_offsets` which contains some offsets that are used to call the correct function in the function table shown above.
-- The `__original_main` function calls the `menu` function and passes `name`, `jump_table_offsets` pointers and a variable `name_offset` containing **0**. This offset is used in the `setValues` function to referencing to first character of the 'name' buffer. In short, it is the offset of the character modified by `fixTypo`.
+- The `__original_main` function calls the `menu` function and passes `name`, `jump_table_offsets` pointers and a variable `name_offset` containing **0**. This offset is used in the `setValues` function to referencing to first character of the `name` buffer. In short, it is the offset of the character modified by `fixTypo`.
 
 {{< image src="/img/Insomnihack_teaser_2024/original_main.png" position="center" >}}
 Figure 4: original_main function
