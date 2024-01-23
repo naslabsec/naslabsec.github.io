@@ -32,6 +32,13 @@ Marcello Maugeri
 Salvatore Graci
 
 @Sgraci32
+
+<div class="post framed" style="display: flex; justify-content: space-around; flex-flow: row wrap; text-align: center;">
+    <div style="width: 230px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <img src="/img/placeholders/member-placeholder.png" alt="Member Name" style="width: 80px; height: 80px; border-radius: 50%;" />
+        <p>test</p>
+        <p>ee</p>
+    </div>
 {{< /boxed >}}
 
 {{< boxed title="Members">}}
@@ -39,7 +46,9 @@ Benedetto Ucchino
 
 @R1D3R175
 <--->
+![Gabriele Giaccari](/img/placeholders/member-placeholder.png)
 Gabriele Giaccari
+
 
 @B@db0y18
 <--->
