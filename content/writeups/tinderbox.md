@@ -53,14 +53,14 @@ We can use the [ghidra-wasm-plugin](https://github.com/nneonneo/ghidra-wasm-plug
 
 ### Vulnerability
 
-{{< figure src="/img/Insomnihack_teaser_2024/get_name.png" position="center" caption="Get name function" captionPosition="left">}}
+{{< figure src="/img/Insomnihack_teaser_2024/get_name.png" position="left" caption="Get name function" captionPosition="left">}}
 
 After disassembling it in Ghidra we immediately notice that the function `get_name` uses `scanf` with the format string `%s`. It's clearly a buffer overflow.
 We can see that there is a function called `win` that we need to call to print the flag and that is referenced by a function table as shown below.
 
-{{< figure src="/img/Insomnihack_teaser_2024/jump_table.png" position="center" caption="Function table" captionPosition="left">}}
+{{< figure src="/img/Insomnihack_teaser_2024/jump_table.png" position="left" caption="Function table" captionPosition="left">}}
 
-{{< figure src="/img/Insomnihack_teaser_2024/setValues.png" position="center" caption="setValues function" captionPosition="left">}}
+{{< figure src="/img/Insomnihack_teaser_2024/setValues.png" position="left" caption="setValues function" captionPosition="left">}}
 
 Some minimal refactoring later we found that the `setValues` function (traceback: `setValues` <= `fixTypo` <=  `menu` <= `__original_main`) can be abused to get arbitrary write primitive on the memory and get the flag. Here is why:
 
@@ -68,7 +68,7 @@ Some minimal refactoring later we found that the `setValues` function (traceback
 - The `__original_main` function defines a `jump_table_offsets` which contains some offsets that are used to call the correct function in the function table shown above.
 - The `__original_main` function calls the `menu` function and passes `name`, `jump_table_offsets` pointers and a variable `name_offset` containing **0**. This offset is used in the `setValues` function as a reference to the first character of the `name` buffer. In short, it is the offset of the character modified by `fixTypo`.
 
-{{< figure src="/img/Insomnihack_teaser_2024/original_main.png" position="center" caption="original_main function" captionPosition="left">}}
+{{< figure src="/img/Insomnihack_teaser_2024/original_main.png" position="left" caption="original_main function" captionPosition="left">}}
 
 We can't use the buffer overflow directly to overwrite `jump_table_offsets` because the stack layout is the following:
 *Note: in this stack representation the numbers in square bracket are refered to the size of the array.*
@@ -95,7 +95,7 @@ We can't use the buffer overflow directly to overwrite `jump_table_offsets` beca
 
 We can exploit this to change the values of `name_offset` to negative value, and gain arbitrary memory write with `setValues`functions. Basically we only need to modify `jump_tables_offset[1]` from value **1** to **2**, so we'll call `win` function when we run third option in the menu.
 
-{{< figure src="/img/Insomnihack_teaser_2024/menu.png" position="center" caption="menu function" captionPosition="left">}}
+{{< figure src="/img/Insomnihack_teaser_2024/menu.png" position="left" caption="menu function" captionPosition="left">}}
 
 After some trial and errors we found out that the right offset to modify `jump_tables_offset[1]` is **-12**. 
 
