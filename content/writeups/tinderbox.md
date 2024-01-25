@@ -74,22 +74,22 @@ We can't use the buffer overflow directly to overwrite `jump_table_offsets` beca
 *Note: in this stack representation the numbers in square bracket are refered to the size of the array.*
 
 ```
-+________________________+
-|                        |
-|  jump_table_offsets[4] |
-|________________________|
-|                        |
-|        name[16]        |
-|________________________|
-|                        |
-|       name_offset      |
-|________________________|
-|                        |
-|        something       |
-|________________________|
-|                        |
-|           ret          |
-+________________________+
++______________________________+
+|                              |
+|  uint jump_table_offsets[4]  |
+|______________________________|
+|                              |
+|        char name[16]         |
+|______________________________|
+|                              |
+|       int name_offset        |
+|______________________________|
+|                              |
+|           something          |
+|_____________________________ |
+|                              |
+|              ret             |
++______________________________+
 
 ```
 
