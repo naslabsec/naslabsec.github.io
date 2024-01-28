@@ -3,7 +3,7 @@ title: 'Real World CTF 6th'
 challenge: 'YouKnowHowToFuzz!'
 date: 2024-01-28T00:00:00+01:00
 author: 'v0lp3'
-description: 'Writeup for the challenge YouKnowHowToFuzz! of the Real World CTF 6th' 
+description: 'Writeup for the Real World CTF 6th challenge "YouKnowHowToFuzz!"' 
 cover: '/img/RealWorldCTF_6th/logo.png'
 tags: ['misc']
 draft: false

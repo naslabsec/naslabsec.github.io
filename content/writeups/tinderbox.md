@@ -3,7 +3,7 @@ title: 'Insomnihack teaser 2024'
 challenge: 'Tinderbox'
 date: 2024-01-22T00:00:00+01:00
 author: 'v0lp3 & SimozB & Bonfra'
-description: 'Writeup for challenge TinderBox of Insomnihack teaser 2024' 
+description: 'Writeup for the Insomnihack Teaser 2024 CTF challenge "TinderBox"' 
 cover: '/img/Insomnihack_teaser_2024/logo.png'
 tags: ['pwn', 'misc']
 draft: false
