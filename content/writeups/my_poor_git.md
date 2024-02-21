@@ -20,11 +20,11 @@ https://poor-git.chall.lac.tf/flag.git
 
 Accessing the homepage or the git repository from the browser returns an error `404 Not Found`, this indicates that directory listing is not available.
 
-{{<figure src="/img/la_ctf_2024/404.png" position="left" caption="Error 404 Not Found" captionPosition="left">}}
+{{< figure src="/img/la_ctf_2024/404.png" position="left" caption="Error 404 Not Found" captionPosition="left">}}
 
 Accessing the `HEAD` file gives us its output, this indicates that the content of the `.git` folder is accessible over internet.
 
-{{<figure src="/img/la_ctf_2024/HEAD.png" position="left" caption="HEAD file content" captionPosition="left">}}
+{{< figure src="/img/la_ctf_2024/HEAD.png" position="left" caption="HEAD file content" captionPosition="left">}}
 
 ### Cloning the repository
 
@@ -50,7 +50,7 @@ fi
 $ ./gitdumper.sh https://poor-git.chall.lac.tf/flag.git/ ./flag
 ```
 
-{{<figure src="/img/la_ctf_2024/dump.png" position="left" caption="GitDumper output" captionPosition="left">}}
+{{< figure src="/img/la_ctf_2024/dump.png" position="left" caption="GitDumper output" captionPosition="left">}}
 
 ### Enumerating the commits
 
@@ -68,7 +68,7 @@ We can dump them using the [extractor](https://github.com/internetwache/GitTools
 ./extractor.sh ./flag/ extract_folder
 ```
 
-{{<figure src="/img/la_ctf_2024/extraction.png" position="left" caption="Extractor output" captionPosition="left">}}
+{{< figure src="/img/la_ctf_2024/extraction.png" position="left" caption="Extractor output" captionPosition="left">}}
 
 We'll find the flag in the file `extract_folder/4-e3fde9187ea42af07d95bb3e891b6338738810ab/flag.txt`.
 
