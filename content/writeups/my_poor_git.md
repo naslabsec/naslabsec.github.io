@@ -16,6 +16,16 @@ The git repo is available at
 https://poor-git.chall.lac.tf/flag.git
 ```
 
+### Quick look
+
+Accessing the homepage or the git repository from the browser returns an error `404 Not Found`, this indicates that directory listing is not available.
+
+{{< figure src="/img/la_ctf_2024/404.png" position="left" caption="Error 404 Not Found" captionPosition="left">}}
+
+Accessing the `HEAD` file gives us its output, this indicates that the content of the `.git` folder is accessible over internet.
+
+{{< figure src="/img/la_ctf_2024/HEAD.png" position="left" caption="HEAD file content" captionPosition="left">}}
+
 ### Cloning the repository
 
 Trying to clone the repository with `git clone` returns an error:
@@ -25,7 +35,7 @@ remote: aborting due to possible repository corruption on the remote side.
 fatal: protocol error: bad pack header
 ```
 
-We can dump it using `GitDumper` from [GitTools](https://github.com/internetwache/GitTools/blob/master/Dumper/gitdumper.sh).
+We can dump the content of the `.git` folder using [GitDumper](https://github.com/internetwache/GitTools/blob/master/Dumper/gitdumper.sh) from `GitTools`.
 
 But first we'll need to remove the url check at line 54:
 
@@ -40,31 +50,26 @@ fi
 $ ./gitdumper.sh https://poor-git.chall.lac.tf/flag.git/ ./flag
 ```
 
+{{< figure src="/img/la_ctf_2024/dump.png" position="left" caption="GitDumper output" captionPosition="left">}}
+
 ### Enumerating the commits
 
-Running `git log` will return an error:
+We can try to obtain informations about the repository by analyzing the commits.
+
+Running `git log` returns an error:
 
 ```
 fatal: your current branch 'main' does not have any commits yet
 ```
 
-We can dump the commits manually using `git-cat` in a slightly modified version of this bash script from [StackOverflow](https://stackoverflow.com/a/51543235/8090582).
+We can dump them using the [extractor](https://github.com/internetwache/GitTools/blob/master/Extractor/extractor.sh) script from `GitTools`.
 
 ```bash
-cd ./flag/.git/objects; 
-
-for d in * ; do (
-  cd "$d"; 
-  
-  for p in * ; do ( 
-    echo "$d$p";
-    git cat-file -p $d$p > ../../../$d$p
-  ); done 
-); done
-
-cd ../../../
+./extractor.sh ./flag/ extract_folder
 ```
 
-We'll find the flag in the file `741fa59ac9ec45f978d799bd88b7290bc304abdd`.
+{{< figure src="/img/la_ctf_2024/extraction.png" position="left" caption="Extractor output" captionPosition="left">}}
+
+We'll find the flag in the file `extract_folder/4-e3fde9187ea42af07d95bb3e891b6338738810ab/flag.txt`.
 
 > lactf{u51n9_dum8_g17_pr070c01z}
