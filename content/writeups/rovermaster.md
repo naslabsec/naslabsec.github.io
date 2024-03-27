@@ -34,11 +34,11 @@ Hahaha! You're fun.
 This interaction occurs upon establishing the connection.
 
 **Constraints**:
-- The input `a` must be a *number* where $0 <= a <= 32$.
-- The input `b` must be a *string* where $a <= len(b) <= a + 1$.
+- The input `a` must be a *number* where 0 <= a <= 32.
+- The input `b` must be a *string* where a <= len(b) <= a + 1.
 
 **Notes**:
-Even if we try the combination where $a = 32$ and $len(b) = 33$, or where $a = 0$ and $len(b) = 1$, the binary doesn't crash.
+Even if we try the combination where a = 32 and len(b) = 33, or where a = 0 and len(b) = 1, the binary doesn't crash.
 ### Input: option
 
 ```
@@ -53,7 +53,7 @@ Option: $a$
 This interaction is displayed after executing any option and initially after the inputting the joke.
 
 **Constraints**:
-- The input `a` must be a *number* where $1 <= a <= 3$.
+- The input `a` must be a *number* where 1 <= a <= 3.
 
 **Notes**:
 - Initially, each rover doesn't have a preset command.
@@ -87,7 +87,7 @@ Choose the rover: $a$
 This interaction is showed if we select option 1 in the [option interaction](##Option).
 
 **Constraints**:
--  The input `a` must be a *number* where $0 <= a <= 14$.
+-  The input `a` must be a *number* where 0 <= a <= 14.
 
 ### Input: send cmd to rover
 
@@ -109,7 +109,7 @@ Choose the action: $a$
 This interaction is showed if we select option 2 in the [option interaction](##Option).
 
 **Constraints**:
-- The input `a` must be a *number* where $0 <= a <= 5$.
+- The input `a` must be a *number* where 0 <= a <= 5.
 
 **Notes**:
 - The command is sent only to the selected rover.
@@ -133,11 +133,11 @@ Send new name size: $b$
 This interaction is showed after sending the command '*Set name*' and then executing the command on the selected rover.
 
 **Constraints**:
-- The input `a` must be a *number* where $0 <= a <= 256$.
-- The input `b` must be a *string* where $a <= len(b) <= a + 1$.
+- The input `a` must be a *number* where 0 <= a <= 256.
+- The input `b` must be a *string* where a <= len(b) <= a + 1.
 
 **Notes**:
-Even if we try the combination where $a = 256$ and $len(b) = 257$, or where $a = 0$ and $len(b) = 1$, the binary doesn't crash.
+Even if we try the combination where a = 256 and len(b) = 257, or where a = 0 and len(b) = 1, the binary doesn't crash.
 ### Input: set planet
 
 ``` 
@@ -159,11 +159,11 @@ Done!
 This interaction is showed after sending the command '*Set planet*' and then executing the command on the selected rover.
 
 **Constraints**:
-- The input `a` must be a *number* where $0 <= a <= 256$.
-- The input `b` must be a *string* where $a <= len(b) <= a + 1$.
+- The input `a` must be a *number* where 0 <= a <= 256.
+- The input `b` must be a *string* where a <= len(b) <= a + 1.
 
 **Notes**:
-Even if we try the combination where $a = 256$ and $len(b) = 257$, or where $a = 0$ and $len(b) = 1$, the binary doesn't crash.
+Even if we try the combination where a = 256 and len(b) = 257, or where a = 0 and len(b) = 1, the binary doesn't crash.
 
 ## Attachment analysis
 
