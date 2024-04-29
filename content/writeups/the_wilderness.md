@@ -113,9 +113,11 @@ context.arch = "amd64"
 DEBUG = False
 
 if DEBUG:
+        import clipboard
         r = remote("127.0.0.1", 1337)
         r.recvuntil("remote ")
         port = r.recvline(keepends=False).decode()
+        clipboard.copy(f"attach remote :{port}")
 else:
         r = remote("thewilderness.challs.open.ecsc2024.it", 38012)
 
