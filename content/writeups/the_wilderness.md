@@ -96,11 +96,11 @@ We can exploit the fact that a reference to `syscall` is present in the binary. 
 
 ### Problem 3: No leak?
 
-The unsettling aspect of this challenge is that everything is zeroed out. All general-purpose registers and even special ones are cleared. Even the base of `fs` and `gs` is set to zero.
+The unsettling aspect of this challenge is that everything is zeroed out. All general-purpose registers and even special ([SIMD](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data)) ones are cleared. Even the base of `fs` and `gs` is set to zero.
 
 #### Solution
 
-To overcome this challenge, we need to find an instruction that will cause a leak in the registers. After some searching, I decided to skim through all the instructions of the [x86/x64 architecture](https://www.felixcloutier.com/x86/) architecture. Finally, I came across [RDSSPD/RDSSPQ](https://www.felixcloutier.com/x86/rdsspd:rdsspq). This instruction, when Intel CET shadow stack is enabled, will indeed cause a leak in the specified register.
+To overcome this problem, we need to find an instruction that will cause a leak in the registers. After some searching, I decided to skim through all the instructions of the [x86/x64 architecture](https://www.felixcloutier.com/x86/) architecture. Finally, I came across [RDSSPD/RDSSPQ](https://www.felixcloutier.com/x86/rdsspd:rdsspq). This instruction, when Intel CET shadow stack is enabled, will indeed cause a leak in the specified register.
 ## Exploit
 
 Here is the full script:
