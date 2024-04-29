@@ -5,7 +5,7 @@ date: 2024-04-29T00:00:00+01:00
 author: 'v0lp3'
 description: 'Writeup for the OpenECSC 2024 - Round 2 CTF challenge "The Wilderness"' 
 cover: '/img/openECSC/logo.png'
-tags: ['pwn']
+tags: ['pwn', 'shellcode', 'intel cet']
 draft: false
 ---
 

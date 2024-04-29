@@ -5,7 +5,7 @@ date: 2024-02-05T00:00:00+01:00
 author: 'v0lp3'
 description: 'Writeup for the DiceCTF 2024 Quals challenge "baby-talk"' 
 cover: '/img/dicectf_quals_2024/logo.png'
-tags: ['pwn']
+tags: ['pwn', 'heap', 'House of Einherjar']
 draft: false
 ---
 

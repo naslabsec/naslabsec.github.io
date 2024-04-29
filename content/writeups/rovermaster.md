@@ -5,7 +5,7 @@ date: 2024-03-28T00:00:00+01:00
 author: 'v0lp3'
 description: 'Writeup for the OpenECSC 2024 - Round 1 CTF challenge "RoverMaster"' 
 cover: '/img/openECSC/logo.png'
-tags: ['pwn']
+tags: ['pwn', 'rop', 'ppc64']
 draft: false
 ---
 ```
