@@ -447,7 +447,7 @@ The strategy is:
 
 Note that if you have a bad board, you can visit the `/newboard` route in the service to get a new board without losing the streak. A board can be cloned up to 5 times, so we can reveal the position of only 5 bombs per game.
 
-{{< code language="python" title="Flask server for serve the exploit and get the leak from bot" id="12" expand="Show" collapse="Hide" isCollapsed="false" >}}
+{{< code language="python" title="Flask server for serve the exploit and get the leak from the bot" id="12" expand="Show" collapse="Hide" isCollapsed="false" >}}
 from flask import Flask, request, render_template, render_template_string
 
 import requests
