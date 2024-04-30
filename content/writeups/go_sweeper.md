@@ -9,7 +9,7 @@ tags: ['web', 'open redirect', 'xsleak']
 draft: false
 ---
 
-{{< figure src="/img/openECSC/go_sweeper/play.png" position="left" caption="Minesweeper" captionPosition="left">}}
+{{< figure src="/img/openECSC/go_sweeper/play.png" position="left" caption="Go Sweeper" captionPosition="left">}}
 
 **tl;dr**
 - Go Sweeper is a web service developed in Go using the [go-chi](https://pkg.go.dev/github.com/go-chi/chi/v5) framework.
