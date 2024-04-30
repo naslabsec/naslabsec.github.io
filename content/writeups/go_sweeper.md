@@ -22,7 +22,7 @@ draft: false
 
 The challenge provides us with the source code of the application. As evident from the _main.go_ file, the service implements several routes:
 
-{{< code language="go" title="Part of the main function" id="1" expand="Show" collapse="Hide" isCollapsed="true" >}}
+{{< code language="go" title="Part of the main function" id="1" expand="Show" collapse="Hide" isCollapsed="false" >}}
     r.Get("/", homeHandler)
     r.Get("/register", registerHandler)
     r.Get("/login", loginGetHandler)
@@ -37,7 +37,7 @@ The challenge provides us with the source code of the application. As evident fr
 
 As observed in the code, all functions are wrapped by the `authMiddleware`, except for: `/`, `/register`, and `/login`. This middleware essentially triggers a redirect to the login page.
 
-{{< code language="go" title="authMiddleware function" id="2" expand="Show" collapse="Hide" isCollapsed="true" >}}
+{{< code language="go" title="authMiddleware function" id="2" expand="Show" collapse="Hide" isCollapsed="false" >}}
 func authMiddleware(next http.HandlerFunc) http.HandlerFunc {
     return func(w http.ResponseWriter, r *http.Request) {
         s, err := sessionStore.Get(r, "session")
@@ -61,7 +61,7 @@ func authMiddleware(next http.HandlerFunc) http.HandlerFunc {
 
 Here's the gist: the application leverages two middleware.
 
-{{< code language="go" title="Part of the main function" id="3" expand="Show" collapse="Hide" isCollapsed="true" >}}
+{{< code language="go" title="Part of the main function" id="3" expand="Show" collapse="Hide" isCollapsed="false" >}}
     r.Use(securityHeadersMiddleware)
     r.Use(redirectMiddleware)
 {{< /code >}}
@@ -69,7 +69,7 @@ Here's the gist: the application leverages two middleware.
 
 The query parameter `redirect` is included to redirect the user back to the route they were trying to access before logging in.
 
-{{< code language="go" title="redirectMiddleware function" id="4" expand="Show" collapse="Hide" isCollapsed="true" >}}
+{{< code language="go" title="redirectMiddleware function" id="4" expand="Show" collapse="Hide" isCollapsed="false" >}}
 func redirectMiddleware(next http.Handler) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         urlto := r.URL.Query().Get("redirect")
@@ -126,7 +126,7 @@ In this code, there is some logic to manage the redirect. The aim is to permit r
 
 Returning to the challenge, this service implements the Minesweeper game. The objective is to win 20 consecutive boards. After achieving this, by visiting the `/` route, we will obtain the flag.
 
-{{< code language="go" title="homeHandler function, route /" id="5" expand="Show" collapse="Hide" isCollapsed="true" >}}
+{{< code language="go" title="homeHandler function, route /" id="5" expand="Show" collapse="Hide" isCollapsed="false" >}}
 func homeHandler(w http.ResponseWriter, r *http.Request) {
     userid, points, tries, err := getUserAndPoints(r)
     
@@ -166,7 +166,7 @@ If we lose even once, we have to start over and win 20 consecutive games again. 
 
 In each board, during game, we have the option to request an "Admin check" of the board (don't ask me why). In this service, the admin can view the uncovered board using the "xray function" which allows them to see where the bombs are. The function at the route `/checkboard` triggers a bot in the backend that clones your board (up to 5 times) and visits `/board?xray=1`.
 
-{{< code language="go" title="checkBoardHandler function, route /checkboard" id="6" expand="Show" collapse="Hide" isCollapsed="true" >}}
+{{< code language="go" title="checkBoardHandler function, route /checkboard" id="6" expand="Show" collapse="Hide" isCollapsed="false" >}}
 func checkBoardHandler(w http.ResponseWriter, r *http.Request) {
     // Create a new user for the bot
     id := make([]byte, 16)
@@ -280,7 +280,7 @@ From the previous section, we've established that we can redirect the bot wherev
 
 Apart from that, the other middleware we mentioned earlier but haven't explored yet is `securityHeadersMiddleware`:
 
-{{< code language="go" title="securityHeadersMiddleware function" id="7" expand="Show" collapse="Hide" isCollapsed="true" >}}
+{{< code language="go" title="securityHeadersMiddleware function" id="7" expand="Show" collapse="Hide" isCollapsed="false" >}}
 func securityHeadersMiddleware(next http.Handler) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         // https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html
@@ -307,7 +307,7 @@ The solution here lies in leveraging [XsLeak](https://xsleaks.dev/) techniques, 
 
 The technique to transform the bot into an oracle here begins with the observation that the loading times of the `/board` route increase after hitting a bomb. We can verify this behavior with the following code:
 
-{{< code language="go" title="submitGuessHandler function" id="8" expand="Show" collapse="Hide" isCollapsed="true" >}}
+{{< code language="go" title="submitGuessHandler function" id="8" expand="Show" collapse="Hide" isCollapsed="false" >}}
 // Check if the guess is a bomb
     if board[guess] == 100 {
         // Update points and delete the board
@@ -325,7 +325,7 @@ The technique to transform the bot into an oracle here begins with the observati
 
 When a bomb is hit, the board is deleted. What happens when the user no longer has a board?
 
-{{< code language="go" title="boardHandler function, route /board" id="9" expand="Show" collapse="Hide" isCollapsed="true" >}}
+{{< code language="go" title="boardHandler function, route /board" id="9" expand="Show" collapse="Hide" isCollapsed="false" >}}
     if boardJson == "" {
         http.Redirect(w, r, "/newboard", http.StatusFound)
         return
@@ -354,7 +354,7 @@ This implies that we can utilize auto-submitting forms to implement our side cha
 
 Here is the exploit:
 
-{{< code language="html" title="pwn.html" id="10" expand="Show" collapse="Hide" isCollapsed="true" >}}
+{{< code language="html" title="pwn.html" id="10" expand="Show" collapse="Hide" isCollapsed="false" >}}
 <html>
 <script>
     const URL = "https://gosweeper.challs.open.ecsc2024.it"
@@ -369,7 +369,7 @@ Here is the exploit:
 {{< /code >}}
 
 
-{{< code language="html" title="index.html" id="11" expand="Show" collapse="Hide" isCollapsed="true" >}}
+{{< code language="html" title="index.html" id="11" expand="Show" collapse="Hide" isCollapsed="false" >}}
 <html>
 		<body>
 			<form
@@ -447,7 +447,7 @@ The strategy is:
 
 Note that if you have a bad board, you can visit the `/newboard` route in the service to get a new board without losing the streak. A board can be cloned up to 5 times, so we can reveal the position of only 5 bombs per game.
 
-{{< code language="python" title="Flask server for serve the exploit and get the leak from bot" id="12" expand="Show" collapse="Hide" isCollapsed="true" >}}
+{{< code language="python" title="Flask server for serve the exploit and get the leak from bot" id="12" expand="Show" collapse="Hide" isCollapsed="false" >}}
 from flask import Flask, request, render_template, render_template_string
 
 import requests
@@ -521,7 +521,7 @@ Well, during the competition, I found myself unable to get the flag of this chal
 
 To master this challenge, the champion used this script to simplify things by pasting it into the browser console in the board page:
 
-{{< code language="javascript" title="*Script for the /board page" id="13" expand="Show" collapse="Hide" isCollapsed="true" >}}
+{{< code language="javascript" title="*Script for the /board page" id="13" expand="Show" collapse="Hide" isCollapsed="false" >}}
 document.addEventListener('keydown', function(event) {
   if (event.key === 'r') {
     document.location = "/newboard"
