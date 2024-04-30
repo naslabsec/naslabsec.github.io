@@ -521,7 +521,7 @@ Well, during the competition, I found myself unable to get the flag of this chal
 
 To master this challenge, the champion used this script to simplify things by pasting it into the browser console in the board page:
 
-{{< code language="javascript" title="*Script for the /board page" id="13" expand="Show" collapse="Hide" isCollapsed="false" >}}
+{{< code language="javascript" title="Script for the /board page" id="13" expand="Show" collapse="Hide" isCollapsed="false" >}}
 document.addEventListener('keydown', function(event) {
   if (event.key === 'r') {
     document.location = "/newboard"
