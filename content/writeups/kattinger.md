@@ -5,7 +5,7 @@ date: 2023-12-10T00:00:00+01:00
 author: 'v0lp3'
 description: 'Writeup for the SnakeCTF 2023 challenge "Kattinger"' 
 cover: '/img/snakeCTF2023/logo.png'
-tags: ['web']
+tags: ['web', 'crypto', 'hash length extension']
 draft: false
 ---
 
