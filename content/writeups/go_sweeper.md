@@ -563,7 +563,6 @@ Essentially, it's a method to quickly identify the number on the card at a glanc
 
 Plus, if you hit the 'r' key, you can generate a new board. By overriding the page in the web browser, you can ensure these scripts remain active even after reloading.
 
-
 {{< figure src="/img/openECSC/go_sweeper/win.png" position="left" caption="Home after winning 20 consecutive boards" captionPosition="left">}}
 
 > openECSC{st0p_l3ak1ng_pl34se_1c9832ea}
