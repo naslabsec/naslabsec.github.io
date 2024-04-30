@@ -16,7 +16,7 @@ draft: false
 - The challenge implements the minesweeper game.
 - The web service has an open redirect vulnerability.
 - A middleware is used to add a set of security-enhancing headers, as detailed in the [OWASP HTTP Headers Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.htm).
-- The solution involves addressing an XS leak. By exploiting a side channel, an oracle can be created to identify when a card is a bomb.
+- The solution involves an XS leak. By exploiting a side channel, an oracle can be created to identify when a card is a bomb.
 
 ## Code review
 
