@@ -517,9 +517,9 @@ if __name__ == '__main__':
 
 ## Side notes
 
-Well, during the competition, I found myself unable to get the flag of this challenge. Winning the game proved to be quite the Herculean task, even with the cheat at my disposal. Unfortunately, time slipped away as I toiled away on developing the exploit. However, once the competition concluded, I had no choice but to call upon the expertise of @SimozB, the renowned master pwner of Prato Fiorito (minesweeper). Remarkably, he effortlessly tackled all 20 boards in only 3 hours...
+Well, during the competition, I found myself unable to get the flag of this challenge. Winning the game proved to be quite the Herculean task, even with the cheat at my disposal. Unfortunately, time slipped away as I toiled away on developing the exploit. But when the round was over, I had to pull out the big guns and dial up @SimozB, the renowned master of Prato Fiorito (minesweeper). Remarkably, he effortlessly tackled all 20 boards in only 3 hours...
 
-To master this challenge, the champion used this script to simplify things by pasting it into the browser console in the board page:
+To master this challenge, he used this script:
 
 {{< code language="javascript" title="Script for the /board page" id="13" expand="Show" collapse="Hide" isCollapsed="false" >}}
 document.addEventListener('keydown', function(event) {
