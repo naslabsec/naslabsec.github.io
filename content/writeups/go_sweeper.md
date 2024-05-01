@@ -122,7 +122,7 @@ func redirectMiddleware(next http.Handler) http.Handler {
 }
 {{< /code >}}
 
-In this code, there is some logic to manage the redirect. The aim is to permit redirects only to the same origin or to a specific route within the same origin. However, these checks are insufficient and lead to a common vulnerability known as [open redirect](https://book.hacktricks.xyz/pentesting-web/open-redirect). For instance, if we input something like: `//naslabsec.it`, the redirect will take us to `https://naslabsec.it`. Other attempted payloads, such as `//javascript:alert(1)`, aimed at triggering an XSS on the page, do not succeed.
+In this code, there is some logic to manage the redirects. The aim is to permit redirects only to the same origin or to a specific route within the same origin. However, these checks are insufficient and lead to a common vulnerability known as [open redirect](https://book.hacktricks.xyz/pentesting-web/open-redirect). For example, if we input something like: `//naslabsec.it`, the redirect will take us to `https://naslabsec.it`. Other attempted payloads, such as `//javascript:alert(1)`, aimed at triggering an XSS on the page, do not succeed.
 
 Returning to the challenge, this service implements the Minesweeper game. The objective is to win 20 consecutive boards. After achieving this, by visiting the `/` route, we will obtain the flag.
 
@@ -164,7 +164,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 
 If we lose even once, we have to start over and win 20 consecutive games again. It's nearly impossible without cheating, lol.
 
-In each board, during game, we have the option to request an "Admin check" of the board (don't ask me why). In this service, the admin can view the uncovered board using the "xray function" which allows them to see where the bombs are. The function at the route `/checkboard` triggers a bot in the backend that clones your board (up to 5 times) and visits `/board?xray=1`.
+In each board, during game, we have the option to request an "Admin check" of the board. In this service, the admin can view the uncovered board using the "xray function" which allows him to see where the bombs are. The function at the route `/checkboard` triggers a bot in the backend that will clone your board (up to 5 times) and will visit `/board?xray=1`.
 
 {{< code language="go" title="checkBoardHandler function, route /checkboard" id="6" expand="Show" collapse="Hide" isCollapsed="false" >}}
 func checkBoardHandler(w http.ResponseWriter, r *http.Request) {
@@ -271,14 +271,15 @@ func checkBoardHandler(w http.ResponseWriter, r *http.Request) {
 }
 {{< /code >}}
 
-In this code, it's worth noting that if the `cloneid` is not provided, the requester user's ID will be used by default.
+In this code, it's worth noting that if the `cloneid` is not provided, the requester user's id will be used by default.
 
 Revisiting the previous vulnerability, we can exploit the open redirect here to redirect the bot wherever we want. For instance, we can make a POST request to `/checkboard` with the form data `cloneid=&redirect=//naslabsec.it`, and the bot will be redirected to `https://naslabsec.it`.
+
 ## Exploit
 
-From the previous section, we've established that we can redirect the bot wherever we want, but it's unclear what we can accomplish with this capability. One possibility is to attempt to steal the cookie of the admin bot, but since there isn't any XSS vulnerability in the service with or without the open redirect, we need to find another way.
+From the previous section, we've established that we can redirect the bot wherever we want, but it's unclear what we can accomplish with this capability. One possibility is to attempt to steal the cookie of the admin bot, but since there isn't any XSS vulnerability in the service with or without the open redirect, we need to find another strategy.
 
-Apart from that, the other middleware we mentioned earlier but haven't explored yet is `securityHeadersMiddleware`:
+Additionally, there's another middleware we mentioned earlier but haven't explored yet: `securityHeadersMiddleware`.
 
 {{< code language="go" title="securityHeadersMiddleware function" id="7" expand="Show" collapse="Hide" isCollapsed="false" >}}
 func securityHeadersMiddleware(next http.Handler) http.Handler {
@@ -303,7 +304,7 @@ func securityHeadersMiddleware(next http.Handler) http.Handler {
 
 This raises the difficulty of the challenge because certain elements like iframes and frames are blocked, and the other headers restrict cross-origin actions. For instance, if we redirect the bot to _[https://naslabsec.it/pwn](https://naslabsec.it/pwn)_ and attempt to make a GET/POST request to _[https://gosweeper.challs.open.ecsc2024.it/board](https://gosweeper.challs.open.ecsc2024.it/board)_, the browser will block it.
 
-The solution here lies in leveraging [XsLeak](https://xsleaks.dev/) techniques, where we need to construct a side channel to obtain a leak from the bot. In reality, there isn't much more we can do, as the `Cross-Origin-Opener-Policy` header enhances isolation. For example, if we open a cross-origin window from https://naslabsec.it to [https://gosweeper.challs.open.ecsc2024.it/board](https://gosweeper.challs.open.ecsc2024.it/board), so most XsLeaks techniques can't be applied.
+The solution here relies on leveraging XsLeak techniques, where we need to construct a side channel to obtain a leak from the bot. However, there isn't much more we can do, as the Cross-Origin-Opener-Policy header enhances isolation. For instance, if we open a cross-origin window from https://naslabsec.it to https://gosweeper.challs.open.ecsc2024.it/board, we can't even close it from the page where we opened it. Therefore, most XsLeaks techniques can't be effectively applied.
 
 The technique to transform the bot into an oracle here begins with the observation that the loading times of the `/board` route increase after hitting a bomb. We can verify this behavior with the following code:
 
