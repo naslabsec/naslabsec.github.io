@@ -1,6 +1,6 @@
 ---
 title: 'Real World CTF 6th'
-challenge: 'YouKnowHowToFuzz!'
+challenge: 'You Know How To Fuzz!'
 date: 2024-01-28T00:00:00+01:00
 author: 'v0lp3'
 description: 'Writeup for the Real World CTF 6th challenge "YouKnowHowToFuzz!"' 
