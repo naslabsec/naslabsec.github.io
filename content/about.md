@@ -17,53 +17,29 @@ draft: false
 {{< /raw >}}
 
 {{< boxed title="Founders">}}
-Andrea Maugeri
-
-@v0lp3
+{{< card name="Andrea Maugeri" linkedin="andreamaugeri" nickname="v0lp3" customlink="https://github.com/v0lp3" avatar="https://avatars.githubusercontent.com/u/20267645?v=4" />}}
 <--->
-Simone Benedetto
-
-@SimozB
+{{< card name="Simone Benedetto" linkedin="simone-benedetto" nickname="SimozB" customlink="https://github.com/codesimo" avatar="https://media.licdn.com/dms/image/D4D03AQFdPPZbs4Hn2A/profile-displayphoto-shrink_800_800/0/1703604657745?e=1720051200&v=beta" avatar="https://avatars.githubusercontent.com/u/1348662" />}}
 <--->
-Marcello Maugeri
-
-@Maray97
+{{< card name="Marcello Maugeri" linkedin="marcello-maugeri" nickname="Maray97" customlink="https://github.com/marcellomaugeri" avatar="https://avatars.githubusercontent.com/u/36514347"/>}}
 <--->
-Salvatore Graci
-
-@Sgraci32
+{{< card name="Salvatore Graci" linkedin="salvatore-graci" nickname="Sgraci32" customlink="https://github.com/BSG-SalvoL" avatar="https://avatars.githubusercontent.com/u/13546667"/>}}
 {{< /boxed >}}
-
 {{< boxed title="Members">}}
-Benedetto Ucchino
-
-@R1D3R175
+{{< card name="Benedetto Ucchino" linkedin="benedetto-ucchino-77478a1b4" nickname="R1D3R175" customlink="https://github.com/R1D3R175" />}}
 <--->
-Gabriele Giaccari
-
-@B@db0y18
+{{< card name="Gabriele Giaccari" linkedin="gabriele-giaccari-83589b243" nickname="B@db0y18" customlink="https://github.com/Gabry022003" />}}
 <--->
-Mattia Lembo
-
-@Hydrogen
+{{< card name="Mattia Lembo" linkedin="mattia-lembo-236256206" nickname="Hydrogen" customlink="https://github.com/HydrogenHL" />}}
 <--->
-Samuele Nicotra
-
-@Spacecast3r
+{{< card name="Samuele Nicotra" linkedin="nicotra-samuele" nickname="Spacecast3r" customlink="https://github.com/Spacecast3r" />}}
 <--->
-Francesco Bonaccorso
-
-@Bonfra
+{{< card name="Francesco Bonaccorso" linkedin="bonfra" nickname="Bonfra" customlink="https://github.com/Bonfra04" />}}
 <--->
-Matteo Capodicasa
-
-@matteocapo
+{{< card name="Matteo Capodicasa" linkedin="matteocapodicasa" nickname="matteocapo" customlink="https://github.com/mcap0" />}}
 <--->
-Francesco Iaria
-
-@Francesco1202
+{{< card name="Francesco Iaria" linkedin="francesco-iaria" nickname="Francesco1202" customlink="https://github.com/ChojuroCrusoe" />}}
 <--->
-Matteo Gaeta
-
-@Signum98
+{{< card name="Matteo Gaeta" linkedin="matteo-gaeta-signum" nickname="Signum98" customlink="https://github.com/Signum21" />}}
+<--->
 {{< /boxed >}}

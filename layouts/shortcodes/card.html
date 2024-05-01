@@ -1,0 +1,11 @@
+<div style="width:250px; text-align: center; display: flex; justify-content: center; align-items:center; flex-direction: column; margin: 10px 0 10px 0;">    
+    <img src="{{ if .Get "avatar"}}{{ .Get "avatar"}}{{ else }}/img/contacts/default_profile.png{{ end }}" width="80px" style="border-radius: 10px; box-shadow: 0 0 10px 0 rgba(0,0,0,0.1)"/>
+    {{ if .Get "name" }}
+    <a style="text-decoration: none;" {{ if .Get "linkedin"}}href="https://www.linkedin.com/in/{{ .Get "linkedin"}}"{{ end }}>{{ .Get "name"}}</a>
+    {{ .Inner }}
+    {{ end }}
+    {{ if .Get "nickname" }}
+    <a style="text-decoration: none;" {{ if .Get "customlink"}}href="{{ .Get "customlink"}}"{{ end }}>@{{ .Get "nickname"}}</a>
+    {{ .Inner }}
+    {{ end }}
+</div>
