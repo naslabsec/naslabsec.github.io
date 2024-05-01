@@ -336,11 +336,11 @@ If the user doesn't have a board, we are redirected to the handler that generate
 
 So, if we send a guess that isn't a bomb, the loading time of the `/board` route is:
 
-{{< figure src="/img/openECSC/go_sweeper/not_hit.png" position="left" caption="Loading time of /board?xray=1 (as admin), correct guess" captionPosition="left">}}
+{{< figure src="/img/openECSC/go_sweeper/not_hit.png" position="left" caption="Loading time of /board?xray=1 (as admin, local environment), correct guess" captionPosition="left">}}
 
 If the guess isn't incorrect, the board is deleted and the loading time is:
 
-{{< figure src="/img/openECSC/go_sweeper/hit.png" position="left" caption="Loading time of /board?xray=1 (as admin), bomb hit" captionPosition="left">}}
+{{< figure src="/img/openECSC/go_sweeper/hit.png" position="left" caption="Loading time of /board?xray=1 (as admin, local environment), bomb hit" captionPosition="left">}}
 
 So, if we can manipulate the bot to make a POST request to `/guess`, we can create side channels that reveal when there is a bomb behind a card without losing the game!
 This XS leak is documented [here](https://xsleaks.dev/docs/attacks/timing-attacks/network-timing/#cross-window-timing-attacks).
@@ -442,7 +442,7 @@ The strategy is:
 - Redirect the bot to _pwn.html_ through the *checkboard* function.
 - Once _pwn.html_ is visited, it will open automatically two new windows: one to the `/clone` route of the service to clone our board (so the bot now has the same board as us), and the other to the exploit _index.html_.
 - The _index.html_ exploit will contain an auto-submitting form to the `/guess` route of the service, providing the position of the card we want to reveal.
-- _index.html_ will open another window to the `/board?xray=1` route of the service and measure the loading times. Through experimentation, we know that if the loading time is greater than `600ms`, the guess was a bomb.
+- _index.html_ will open another window to the `/board?xray=1` route of the service and measure the loading times. Through experimentation on the remote service, we know that if the loading time is greater than `600ms`, the guess was a bomb.
 - index.html_ will send a request to our route `/naslab`, which will inform us if the guess was a bomb.
 
 Note that if you have a bad board, you can visit the `/newboard` route in the service to get a new board without losing the streak. A board can be cloned up to 5 times, so we can reveal the position of only 5 bombs per game.
@@ -516,7 +516,7 @@ if __name__ == '__main__':
 
 ## Side notes
 
-Well, during the competition, I found myself unable to get the flag of this challenge. Winning the game proved to be quite the Herculean task, even with the cheat at my disposal. Unfortunately, time slipped away as I toiled away on developing the exploit. However, once the competition concluded, I had no choice but to call upon the expertise of @SimozB, the renowned master pwner of Prato Fiorito (minesweeper). Remarkably, he effortlessly tackled all 20 boards in a mere 3 hours...
+Well, during the competition, I found myself unable to get the flag of this challenge. Winning the game proved to be quite the Herculean task, even with the cheat at my disposal. Unfortunately, time slipped away as I toiled away on developing the exploit. However, once the competition concluded, I had no choice but to call upon the expertise of @SimozB, the renowned master pwner of Prato Fiorito (minesweeper). Remarkably, he effortlessly tackled all 20 boards in only 3 hours...
 
 To master this challenge, the champion used this script to simplify things by pasting it into the browser console in the board page:
 
