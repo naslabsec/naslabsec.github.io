@@ -444,7 +444,7 @@ The strategy is:
 - Once _pwn.html_ is visited, it will open automatically two new windows: one to the `/clone` route of the service to clone our board (so the bot now has the same board as us), and the other to the exploit _index.html_.
 - The _index.html_ exploit will contain an auto-submitting form to the `/guess` route of the service, providing the position of the card we want to reveal.
 - _index.html_ will open another window to the `/board?xray=1` route of the service and measure the loading times. Through experimentation on the remote service, we know that if the loading time is greater than `600ms`, the guess was a bomb.
-- index.html_ will send a request to our route `/naslab`, which will inform us if the guess was a bomb.
+- _index.html_ will send a request to our route `/naslab`, which will inform us if the guess was a bomb.
 
 Note that if you have a bad board, you can visit the `/newboard` route in the service to get a new board without losing the streak. A board can be cloned up to 5 times, so we can reveal the position of only 5 bombs per game.
 
