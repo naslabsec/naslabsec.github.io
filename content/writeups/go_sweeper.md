@@ -304,7 +304,7 @@ func securityHeadersMiddleware(next http.Handler) http.Handler {
 
 This raises the difficulty of the challenge because certain elements like iframes and frames are blocked, and the other headers restrict cross-origin actions. For instance, if we redirect the bot to _[https://naslabsec.it/pwn](https://naslabsec.it/pwn)_ and attempt to make a GET/POST request to _[https://gosweeper.challs.open.ecsc2024.it/board](https://gosweeper.challs.open.ecsc2024.it/board)_, the browser will block it.
 
-The solution here relies on leveraging XsLeak techniques, where we need to construct a side channel to obtain a leak from the bot. However, there isn't much more we can do, as the Cross-Origin-Opener-Policy header enhances isolation. For instance, if we open a cross-origin window from https://naslabsec.it to https://gosweeper.challs.open.ecsc2024.it/board, we can't even close it from the page where we opened it. Therefore, most XsLeaks techniques can't be effectively applied.
+The solution here relies on leveraging XS-Leak (Cross-site leak) techniques, where we need to construct a side channel to obtain a leak from the bot. However, there isn't much more we can do, as the Cross-Origin-Opener-Policy header enhances isolation. For instance, if we open a cross-origin window from https://naslabsec.it to https://gosweeper.challs.open.ecsc2024.it/board, we can't even close it from the page where we opened it. Therefore, most XSLeaks techniques can't be effectively applied.
 
 The technique to transform the bot into an oracle here begins with the observation that the loading times of the `/board` route increase after hitting a bomb. We can verify this behavior with the following code:
 
