@@ -1,10 +1,10 @@
-<div style="display: flex; align-content: center; column-gap: 100px;">
+<div style="display: flex; align-content: center">
     {{ if .Params.Cover }}
-    <div class="post-cover" style="width: 80px">
-        <img src="{{ .Params.Cover | absURL }}" alt="{{ .Params.CoverAlt | plainify | default .Title }}" />
+    <div class="post-cover" style="max-width: 40%;">
+        <img src="{{ .Params.Cover | absURL }}" alt="{{ .Params.CoverAlt | plainify | default .Title }}" style="width: 50px;" />
     </div>
     {{ end }}
-    <div style="display: flex; flex-direction: column; align-content: center;">
+    <div>
         <a href="{{ .Permalink }}" style="text-decoration: none;">
             <h1 class="post-title" style="margin: 0px;">{{ .Title |
                 markdownify }}</h1>
