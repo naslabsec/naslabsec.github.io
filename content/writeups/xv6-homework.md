@@ -8,7 +8,7 @@ cover: '/img/openECSC/logo.png'
 tags: ['pwn', 'shellcode', 'kernel', 'rop', 'xv6']
 draft: false
 ---
-![[exp.c]]
+
 ## Challenge description
 
 > My operating systems professor is teaching us using xv6. At the end of the lecture, he pointed us to section 6.10 exercise 1 of the book, which states:
