@@ -28,7 +28,7 @@ draft: false
 {{< boxed title="Members">}}
 {{< card name="Benedetto Ucchino" linkedin="benedetto-ucchino-77478a1b4" nickname="R1D3R175" customlink="https://github.com/R1D3R175" />}}
 <--->
-{{< card name="Gabriele Giaccari" linkedin="gabriele-giaccari-83589b243" nickname="B@db0y18" customlink="https://github.com/Gabry022003" />}}
+{{< card name="Gabriele Giaccari" linkedin="gabriele-giaccari-83589b243" nickname="B@db0y18" customlink="https://github.com/Gabry022003" avatar="https://avatars.githubusercontent.com/u/75644914" />}}
 <--->
 {{< card name="Mattia Lembo" linkedin="mattia-lembo-236256206" nickname="Hydrogen" customlink="https://github.com/HydrogenHL" />}}
 <--->
