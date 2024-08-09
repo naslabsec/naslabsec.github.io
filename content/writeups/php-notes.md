@@ -470,19 +470,25 @@ With the possibility to fake the`sysvshm_chunk_head` and `sysvshm_chunk` objects
 
 The limitation of only partial arbitrary read is caused by the fact that the code calls `shm_has_var` before `shm_get_var` in the php code. Infact [the first](https://github.com/php/php-src/blob/PHP-8.1.2/ext/sysvshm/sysvshm.c#L316) function checks that the result obtained by calling `php_check_shm_data` (the offset from the shared memory region of the notepad where the chunk was found) is positive before returning. Thus, we can't read backward from where the memory region was allocated.
 
-{{< code language="c" title="shm_has_var" id="11" expand="Show" collapse="Hide" isCollapsed="false" >}}
+{{< code language="c" title="PHP-8.1.2/ext/sysvshm/sysvshm.c" id="11" expand="Show" collapse="Hide" isCollapsed="false" >}}
+// ...
+
 PHP_FUNCTION(shm_has_var)
 {
 // ...
 	RETURN_BOOL(php_check_shm_data(shm_list_ptr->ptr, shm_key) >= 0);
 }
+
+// ...
 {{< /code >}}
 
 If the chunk is found, the `shm_get_var` will call `php_var_unserialize` and the unserialization will end in `php_var_unserialize_internal` defined [here](https://github.com/php/php-src/blob/PHP-8.1.2/ext/standard/var_unserializer.re#L852). 
 
 To achieve arbitrary read, we can fake the length of the string (note that the length of the string is not equal to the length of the chunk), but we must fulfill the following requirement:
 
-{{< code language="c" title="php_var_unserialize_internal" id="12" expand="Show" collapse="Hide" isCollapsed="false" >}}
+{{< code language="c" title="PHP-8.1.2/ext/standard/var_unserializer.re" id="12" expand="Show" collapse="Hide" isCollapsed="false" >}}
+// ...
+
 static int php_var_unserialize_internal(UNSERIALIZE_PARAMETER)
 {
 // ...
@@ -521,8 +527,12 @@ static int php_var_unserialize_internal(UNSERIALIZE_PARAMETER)
 		ZVAL_STRINGL_FAST(rval, str, len);
 	}
 	return 1;
+
 // ...
+
 }
+
+// ...
 {{< /code >}}
 
 This check ensure that the parsed string will end with `";`. 
@@ -530,7 +540,9 @@ That problem can be solved with the arbitrary write leveraging because we can us
 
 The `shm_put_var` function will end in `php_put_shm_data` (defined [here](https://github.com/php/php-src/blob/PHP-8.1.2/ext/sysvshm/sysvshm.c#L366)) which simply uses the `ptr->end` of the `sysvshm_chunk_head` to determine the position where the new chunk will be written, as shown below:
 
-{{< code language="c" title="php_put_shm_data" id="13" expand="Show" collapse="Hide" isCollapsed="false" >}}
+{{< code language="c" title="PHP-8.1.2/ext/sysvshm/sysvshm.c" id="13" expand="Show" collapse="Hide" isCollapsed="false" >}}
+// ...
+
 static int php_put_shm_data(sysvshm_chunk_head *ptr, zend_long key, const char *data, zend_long len)
 {
 	// ...
@@ -543,13 +555,16 @@ static int php_put_shm_data(sysvshm_chunk_head *ptr, zend_long key, const char *
 	ptr->free -= total_size;
 	return 0;
 }
+
+// ...
+
 {{< /code >}}
 
 And here we go. We can use arbitrary write to place `";` in the last read/write segment of ld, craft a fake chunk and get all leaks we need to exploit PHP. After obtaining a leak of ld, we can calculate all other addresses as offset and inside the segment, there are even a heap and stack (environ) leaks.
 
 ### One/1000000 gadget
 
-During my tests, one weirdness caught my attention: the phpversion() function. Debugging the execution, I found that it was called by a virtual table defined on the heap at offset *0x80238*. After I got the heap leak, I tried to overwrite that address with a one-gadget, but with no luck...
+During my tests, one weirdness caught my attention: the `phpversion()` function. While debugging the execution, I discovered that the address of this function is stored in a virtual table located on the heap, and this function resides at offset *0x80238*. After I got the heap leak, I tried to overwrite that address with a one-gadget, but with no luck...
 
 So, we can use the classic ret2libc technique to gain a shell by overwriting the saved RIP of the `zend_execute` function with the following ROP chain:
 
